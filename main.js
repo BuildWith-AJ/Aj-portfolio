@@ -47,3 +47,27 @@ const form = document.getElementById("contact-form");
     submitBtn.textContent = "Send Message";
     submitBtn.disabled = false;
   });
+
+  document.querySelectorAll('.copyright-year').forEach(el => {
+    el.textContent = new Date().getFullYear();
+});
+
+function updateWestAfricanTime() {
+  const localTimeEl = document.getElementById('local-time');
+  if (!localTimeEl) return;
+
+  const now = new Date();
+  const utcMs = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const watMs = utcMs + (1 * 60 * 60000);
+  const watDate = new Date(watMs);
+
+  const padded = (value) => String(value).padStart(2, '0');
+  const hours = padded(watDate.getHours());
+  const minutes = padded(watDate.getMinutes());
+  const seconds = padded(watDate.getSeconds());
+
+  localTimeEl.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+updateWestAfricanTime();
+setInterval(updateWestAfricanTime, 1000);
